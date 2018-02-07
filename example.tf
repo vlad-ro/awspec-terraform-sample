@@ -13,7 +13,7 @@ resource "aws_s3_bucket" "example" {
   # NOTE: S3 bucket names must be unique across _all_ AWS accounts, so
   # this name must be changed before applying this example to avoid naming
   # conflicts.
-  bucket = "vlad_terraform_getting_started_guide"
+  bucket = "vlad-terraform-getting-started-guide"
   acl    = "private"
 }
 
@@ -25,6 +25,10 @@ resource "aws_instance" "example" {
   # Tells Terraform that this EC2 instance must be created only after the
   # S3 bucket has been created.
   depends_on = ["aws_s3_bucket.example"]
+
+  provisioner "local-exec" {
+    command = "echo ${aws_instance.example.public_ip} > ip_address.txt"
+  }
 }
 
 resource "aws_eip" "ip" {
