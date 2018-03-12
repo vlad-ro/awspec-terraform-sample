@@ -20,4 +20,9 @@ if [ ! -x "$(which dot)" ]; then
     brew install graphviz
 fi
 
+if [ ! -x "$(which awspec)" ]; then
+    echo "Installing awspec..."
+    sudo gem install awspec
+fi
+
 terraform init
