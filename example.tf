@@ -16,6 +16,14 @@ provider "aws" {
   region     = "eu-west-2"
 }
 
+terraform {
+  backend "s3" {
+    bucket = "vlad-terraform-state"
+    key    = "getting-started-guide.tfstate"
+    region = "eu-west-2"
+  }
+}
+
 # New resource for the S3 bucket our application will use.
 resource "aws_s3_bucket" "example" {
   # NOTE: S3 bucket names must be unique across _all_ AWS accounts, so
