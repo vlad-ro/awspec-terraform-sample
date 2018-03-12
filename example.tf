@@ -33,6 +33,10 @@ resource "aws_instance" "example" {
   # S3 bucket has been created.
   depends_on = ["aws_s3_bucket.example"]
 
+  tags {
+    Name = "example"
+  }
+
   provisioner "local-exec" {
     command = "echo ${aws_instance.example.public_ip} > ip_address.txt"
   }
