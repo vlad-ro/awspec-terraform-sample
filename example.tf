@@ -33,9 +33,29 @@ resource "aws_s3_bucket" "example" {
   acl    = "private"
 }
 
+module "vpc" {
+  source = "terraform-aws-modules/vpc/aws"
+
+  name = "my-vpc"
+  cidr = "10.0.0.0/16"
+
+  azs             = ["eu-west-2a"]
+  #private_subnets = ["10.0.1.0/24"]
+  public_subnets  = ["10.0.101.0/24"]
+
+  enable_nat_gateway = false
+  enable_vpn_gateway = false
+
+  tags = {
+    Terraform = "true"
+    Environment = "dev"
+  }
+}
+
 resource "aws_instance" "example" {
   ami           = "${var.amis["amazon-linux-2"]}" 
   instance_type = "t2.micro"
+  subnet_id = "${module.vpc.public_subnets[0]}"
 
   # Tells Terraform that this EC2 instance must be created only after the
   # S3 bucket has been created.
