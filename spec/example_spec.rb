@@ -15,8 +15,7 @@ end
 #end
 
 describe ec2_instances_named('example') do
-  its(:size) { should eq 1 }
-  #it { should have(1).items } # This fails with: undefined method `have' for #<RSpec::ExampleGroups::Ec2I05a41c133451f970d:0x007f99a8b72750>
+  its(:size) { is_expected.to eq 1 }
   it { is_expected.to all(exist) }
   it { is_expected.to all(be_running) }
 end
