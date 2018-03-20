@@ -25,4 +25,4 @@ if [ ! -x "$(which awspec)" ]; then
     sudo gem install awspec
 fi
 
-terraform init
+terraform init -backend-config=terraform.tfvars
