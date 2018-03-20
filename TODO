@@ -1,3 +1,1 @@
-Create pull request for:
-- Fix 'This and other modules can found via the search feature on the Terraform Registry site.'
-  https://github.com/vlad-ro/terraform/commit/62ed0f9eeca38a64c7393f48853079e2d65c8e2c
+- Configuration to run in multiple environments
