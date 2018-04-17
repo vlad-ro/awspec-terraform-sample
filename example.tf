@@ -22,16 +22,6 @@ terraform {
   }
 }
 
-# New resource for the S3 bucket our application will use.
-resource "aws_s3_bucket" "example" {
-  # NOTE: S3 bucket names must be unique across _all_ AWS accounts, so
-  # this name must be changed before applying this example to avoid naming
-  # conflicts.
-  bucket = "vlad-terraform-getting-started-guide"
-
-  acl = "private"
-}
-
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
@@ -40,7 +30,6 @@ module "vpc" {
 
   azs = ["eu-west-2a"]
 
-  #private_subnets = ["10.0.1.0/24"]
   public_subnets = ["10.0.101.0/24"]
 
   enable_nat_gateway = false
@@ -56,10 +45,6 @@ resource "aws_instance" "example" {
   ami           = "${var.amis["amazon-linux-2"]}"
   instance_type = "t2.micro"
   subnet_id     = "${module.vpc.public_subnets[0]}"
-
-  # Tells Terraform that this EC2 instance must be created only after the
-  # S3 bucket has been created.
-  depends_on = ["aws_s3_bucket.example"]
 
   tags {
     Name = "example"
