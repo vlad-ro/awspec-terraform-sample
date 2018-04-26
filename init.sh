@@ -31,7 +31,7 @@ if [ ! -x "$(command -v terraform)" ]; then
     check_install wget
     echo "Installing terraform..."
     # Use cross-platform installation script
-    curl -LO https://raw.github.com/vlad-ro/terraform-installer/master/terraform-install.sh
+    curl -LO https://raw.github.com/robertpeteuil/terraform-installer/master/terraform-install.sh
     sh terraform-install.sh -a
     rm terraform-install.sh
 fi
